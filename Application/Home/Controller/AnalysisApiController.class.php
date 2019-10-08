@@ -57,10 +57,10 @@ class AnalysisApiController extends CommonController
                 'usdt' => $this->usdtPrice
             ),
             'premiumRate' => array(
-                'btc' => $this->premiumRate(BTC),
-                'eth' => $this->premiumRate(ETH),
-                'eos' => $this->premiumRate(EOS),
-                'usdt' => $this->premiumRate(USDT)
+                'btc' => $this->premiumRate(BTC) . '%',
+                'eth' => $this->premiumRate(ETH) . '%',
+                'eos' => $this->premiumRate(EOS) . '%',
+                'usdt' => $this->premiumRate(USDT) . '%'
             ),
             'logo' => array(
                 'btc' => $this->getLogo(BTC),

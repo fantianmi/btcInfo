@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <include file="Public/commonsrc"/>
+    <block name="style"></block>
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<!-- Site wrapper -->
+<div class="wrapper">
+
+    <header class="main-header">
+        <!-- Logo -->
+        <a href="/Home/Analysis/otc" class="logo">
+            <!-- mini logo for sidebar mini 50x50 pixels -->
+            <span class="logo-mini"><b>C</b>OIN</span>
+            <!-- logo for regular state and mobile devices -->
+            <span class="logo-lg"><b>币圈</b>信息站</span>
+        </a>
+        <!-- Header Navbar: style can be found in header.less -->
+        <include file="Public/topmenu"/>
+    </header>
+
+    <!-- =============================================== -->
+
+    <!-- Left side column. contains the sidebar -->
+    <include file="Public/menu"/>
+
+    <!-- =============================================== -->
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content">
+            <block name="content"></block>
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+
+    <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+            <b>Version</b> 1.0.0
+        </div>
+        <strong>Design by Jackmao
+    </footer>
+
+    <include file="Public/control_sidebar"/>
+    <!-- /.control-sidebar -->
+    <!-- Add the sidebar's background. This div must be placed
+         immediately after the control sidebar -->
+    <div class="control-sidebar-bg"></div>
+</div>
+<include file="Public/footersrc"/>
+<block name="script"></block>
+</body>
+</html>

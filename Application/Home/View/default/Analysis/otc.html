@@ -1,0 +1,140 @@
+<extend name="Public/base"/>
+<block name="content">
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">
+                        <img src="" id="logo_btc" class="coin-logo">
+                        BTC
+                    </h3>
+
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
+                                title="Collapse">
+                            <i class="fa fa-minus"></i></button>
+                        <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip"
+                                title="Remove">
+                            <i class="fa fa-times"></i></button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <p>场内价格：￥<span id="price_btc">59041.50</span></p>
+                    <p>场外价格：￥<span id="priceOtc_btc">59041.50</span></p>
+                    <p>溢价率：<span id="premiumRate_btc">-0.66%</span></p>
+                </div>
+                <!-- /.box-body -->
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title"><img src="" id="logo_eth" class="coin-logo">ETH</h3>
+
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
+                                title="Collapse">
+                            <i class="fa fa-minus"></i></button>
+                        <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip"
+                                title="Remove">
+                            <i class="fa fa-times"></i></button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <p>场内价格：￥<span id="price_eth">59041.50</span></p>
+                    <p>场外价格：￥<span id="priceOtc_eth">59041.50</span></p>
+                    <p>溢价率：<span id="premiumRate_eth">-0.66%</span></p>
+                </div>
+                <!-- /.box-body -->
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title"><img src="" id="logo_eos" class="coin-logo">EOS</h3>
+
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
+                                title="Collapse">
+                            <i class="fa fa-minus"></i></button>
+                        <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip"
+                                title="Remove">
+                            <i class="fa fa-times"></i></button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <p>场内价格：￥<span id="price_eos">59041.50</span></p>
+                    <p>场外价格：￥<span id="priceOtc_eos">59041.50</span></p>
+                    <p>溢价率：<span id="premiumRate_eos">-0.66%</span></p>
+                </div>
+                <!-- /.box-body -->
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title"><img src="" id="logo_usdt" class="coin-logo">USDT</h3>
+
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
+                                title="Collapse">
+                            <i class="fa fa-minus"></i></button>
+                        <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip"
+                                title="Remove">
+                            <i class="fa fa-times"></i></button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <p>场内价格：￥<span id="price_usdt">59041.50</span></p>
+                    <p>场外价格：￥<span id="priceOtc_usdt">59041.50</span></p>
+                    <p>溢价率：<span id="premiumRate_usdt">-0.66%</span></p>
+                </div>
+                <!-- /.box-body -->
+            </div>
+        </div>
+    </div>
+</block>
+<block name="style">
+    <style>
+        .coin-logo{width:30px;height:30px;margin-right:10px;}
+    </style>
+</block>
+<block name="script">
+    <script>
+        $(function () {
+            pageDataQuery();
+        });
+        var url = "/home/AnalysisApi/getOtcData";
+        var coinsId = ['btc', 'eth', 'eos', 'usdt'];
+        var params = ['logo', 'premiumRate', 'price', 'priceOtc'];
+
+        function pageDataQuery() {
+            $.get(url, function (res) {
+                console.log(res);
+                if (res) {
+                    if (res.status == 1) {
+                        var data = res.data;
+
+                        for (let i = 0; i < params.length; i++) {
+                            var param = params[i];
+                            var values = data[param];
+                            for (let j = 0; j < coinsId.length; j++) {
+                                var coin = coinsId[j];
+                                var value = values[coin];
+                                var key = param + "_" + coin;
+                                if (param != 'logo') {
+                                    $("#" + key).html(value);
+                                } else {
+                                    $("#" + key).attr('src', value);
+                                }
+
+                            }
+                        }
+                    }
+                }
+
+
+            });
+        }
+    </script>
+</block>

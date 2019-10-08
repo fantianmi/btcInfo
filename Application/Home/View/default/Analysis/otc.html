@@ -96,13 +96,18 @@
 </block>
 <block name="style">
     <style>
-        .coin-logo{width:30px;height:30px;margin-right:10px;}
+        .coin-logo {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+        }
     </style>
 </block>
 <block name="script">
     <script>
         $(function () {
             pageDataQuery();
+            setInterval(pageDataQuery, 5000);
         });
         var url = "/home/AnalysisApi/getOtcData";
         var coinsId = ['btc', 'eth', 'eos', 'usdt'];

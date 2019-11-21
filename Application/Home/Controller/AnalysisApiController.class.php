@@ -147,10 +147,27 @@ class AnalysisApiController extends CommonController
         return '';
     }
 
+    public function getCoinHuobi($coinId)
+    {
+        if ($coinId === BTC) {
+            return 'btc';
+        } else if ($coinId === ETH) {
+            return 'eth';
+        } else if ($coinId === EOS) {
+            return 'eos';
+        } else if ($coinId === USDT) {
+            return 'usdt';
+        }
+        return '';
+    }
+
     public function requestData($coinId)
     {
+        //场外交易价格
         $urlHuobiOtc = 'https://otc-api.eiijo.cn/v1/data/trade-market?coinId=' . $coinId . '&currency=1&tradeType=buy&currPage=1&country=37&blockType=general&online=1';//场外交易行情api（火币）
-        $urlBiance = 'https://api.binance.com/api/v3/ticker/price?symbol=' . $this->getCoin($coinId) . 'USDT';//场内交易行情api（币安）
+        //场内交易价格
+        $urlHuobi = 'https://api.huobi.pro/market/detail/merged?symbol='.$this->getCoinHuobi($coinId).'usdt';
+        //$urlBiance = 'https://api.binance.com/api/v3/ticker/price?symbol=' . $this->getCoin($coinId) . 'USDT';//场内交易行情api（币安）
 
         $res = curlGetContent($urlHuobiOtc);
         $result = json_decode($res, true);
@@ -160,10 +177,12 @@ class AnalysisApiController extends CommonController
             $this->setPrice($coinId, $priceOtc, $this->usdtPrice);
         } else {
             unset($res);
-            $res = curlGetContent($urlBiance);
+            $res = curlGetContent($urlHuobi);
             $result = json_decode($res, true);
-            $price = $result['price'] * $this->usdtPrice;
-
+            $price = $result['tick']['bid'][0];
+            //$price = $result['price'];
+            $price = $price * $this->usdtPrice;
+            $price = round($price, 2);
             $this->setPrice($coinId, $priceOtc, $price);
         }
     }
